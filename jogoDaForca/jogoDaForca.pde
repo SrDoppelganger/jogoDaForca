@@ -3,9 +3,12 @@ String[]palavras;
 String palavra;
 char[] resposta;
 
+//ordenação das palavras na tela
+int i = 0;
+
 
 void setup(){
-  //setup inicial das variavéis
+  //setup inicial das variavéis (TODO colocar isso numa função para ser chamada dps)
   palavras = loadStrings("frutas.txt");
   palavra = palavras[round(random(0,17))].toLowerCase();
   resposta = palavra.toCharArray();
@@ -13,6 +16,9 @@ void setup(){
   //setup da tela do jogo
   size(600, 600);
   background(0);
+  
+  textSize(32);
+  text("erros:",0,450);
 }
 
 void draw(){
@@ -21,16 +27,20 @@ void draw(){
   text(palavra, 300,300);
 }
 
+//detecta o que foi digitado
 void keyTyped(KeyEvent e){
+  
   println("typed "+ key + " " + keyCode);
   
   if (checkResp(resposta)){
-    text("", 300,250);
+    text(key, 300, 350);
     fill(0, 255, 0);
+    
   }
   else{
-    text("", 300,250);
+    text(key, 10 + i, 470);
     fill(255, 0, 0);
+    i += 32;
   }
 }
 
