@@ -19,16 +19,8 @@ void setup(){
   background(0);
   
   //setup dos gráficos
-  stroke(255);
-  strokeWeight(4);
-  line(50, 50, 50, 300);
-  line(50, 50,150,  50);
-  line(150,50,150,80);
-  rect(25,300,50,10);
-
+  drawHud();
   
-  textSize(32);
-  text("erros:",0,400);
 }
 
 void draw(){
@@ -38,6 +30,10 @@ void draw(){
 //detecta o que foi digitado
 void keyTyped(KeyEvent e){ 
   println("typed "+ key + " " + keyCode);
+  
+  if(key == '0'){
+    gameStart();
+  }
   
   if (checkResp(resposta)){
    //fill(75, 0, 130);  
@@ -98,11 +94,29 @@ void gameOver(){
   textAlign(CENTER);
   text("Você perdeu!", 300,300);
   text("A palavra era: " + palavra, 300,350);
-  fill(75, 0, 130);
+  //fill(75, 0, 130);
 }
 
 void gameStart(){
+  background(0);
   palavras = loadStrings("frutas.txt");
   palavra = palavras[round(random(0,17))].toLowerCase();
   resposta = palavra.toCharArray();
+  erro = -1;
+  i = 0;
+  
+  drawHud();
+}
+
+void drawHud(){
+  stroke(255);
+  strokeWeight(4);
+  line(50, 50, 50, 300);
+  line(50, 50,150,  50);
+  line(150,50,150,80);
+  rect(25,300,50,10);
+
+  textAlign(LEFT);
+  textSize(32);
+  text("erros:",0,400);
 }
