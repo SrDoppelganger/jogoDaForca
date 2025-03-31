@@ -1,18 +1,16 @@
-//base de dados das palavras
-import java.util.Scanner;
+//base de dados
+String[]palavras;
+String palavra;
+char[] resposta;
 
-String[]palavras = {"maça", "pera", "banana", "abacaxi", "goiaba", "laranja","uva","cupuaçu","guaraná","pitanga","kiwi","melão","melancia","morango","pinha"};
-String palavra = palavras[round(random(0,15))];
-char[] resposta = palavra.toCharArray();
-
-
-Scanner scan = new Scanner(System.in);
 
 void setup(){
+  //setup inicial das variavéis
+  palavras = loadStrings("frutas.txt");
+  palavra = palavras[round(random(0,17))];
+  resposta = palavra.toCharArray();
   size(600, 600);
   background(0);
-    
-
 }
 
 void draw(){
@@ -23,7 +21,6 @@ void draw(){
 
 void keyTyped(KeyEvent e){
   println("typed "+ key + " " + keyCode);
-  
   
   if (checkResp(resposta)){
     text(key, 300,250);
