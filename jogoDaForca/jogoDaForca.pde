@@ -23,10 +23,10 @@ void setup(){
   //setup dos gráficos
   stroke(255);
   strokeWeight(4);
-  line(50, 50, 50, 250);
+  line(50, 50, 50, 300);
   line(50, 50,150,  50);
   line(150,50,150,80);
-  rect(25,250,50,10);
+  rect(25,300,50,10);
 
   
   textSize(32);
@@ -34,9 +34,6 @@ void setup(){
 }
 
 void draw(){
-  textSize(32);
-  textAlign(CENTER);
-  text(palavra, 300,300);
   
 }
 
@@ -58,6 +55,10 @@ void letraErrada(){
    i += 24;
    erro ++;
    
+   if(erro > 6){
+     gameOver();
+   }
+   
    switch(erro){
    case 0:
      break;
@@ -71,6 +72,15 @@ void letraErrada(){
    case 3:
      line(150,100,190,140);
      break;
+   case 4:
+     line(150,100,110,140);
+     break;
+   case 5:
+     line(150,200,190,240);
+     break;
+   case 6:
+     line(150,200,110,240);
+     break;
    }
 }
 
@@ -82,4 +92,13 @@ boolean checkResp(char[] resposta){
     }
   }
    return check;
+}
+
+void gameOver(){
+  background(0);
+  textSize(32);
+  textAlign(CENTER);
+  text("Você perdeu!", 300,300);
+  text("A palavra era: " + palavra, 300,350);
+  fill(75, 0, 130);
 }
