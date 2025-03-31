@@ -3,6 +3,9 @@ String[]palavras;
 String palavra;
 char[] resposta;
 
+//contador de erros
+int erro = 0;
+
 //ordenação das palavras na tela
 int i = 0;
 
@@ -34,6 +37,7 @@ void draw(){
   textSize(32);
   textAlign(CENTER);
   text(palavra, 300,300);
+  
 }
 
 //detecta o que foi digitado
@@ -41,14 +45,33 @@ void keyTyped(KeyEvent e){
   println("typed "+ key + " " + keyCode);
   
   if (checkResp(resposta)){
-    text(key, 300, 350);
-    fill(0, 255, 0);   
+   //fill(75, 0, 130);  
+   println("yaaay");
   }
   else{
-    text(key, 10 + i, 430);
-    fill(255, 0, 0);
-    i += 24;
+   letraErrada();
   }
+}
+
+void letraErrada(){
+   text(key, 10 + i, 430);
+   i += 24;
+   erro ++;
+   
+   switch(erro){
+   case 0:
+     break;
+   case 1:
+     ellipse(150,80,40,40);
+     noFill();
+     break;
+   case 2:
+     line(150,80,150,200);
+     break;
+   case 3:
+     line(150,100,190,140);
+     break;
+   }
 }
 
 boolean checkResp(char[] resposta){
