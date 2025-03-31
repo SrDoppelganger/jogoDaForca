@@ -3,3 +3,4 @@
 - [ ] contador de tentativas (homem na forca)
 - [ ] gráficos
 - [ ] mostrar tentativas certas e erradas
+

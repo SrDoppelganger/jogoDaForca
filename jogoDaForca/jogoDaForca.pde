@@ -30,7 +30,7 @@ void keyTyped(KeyEvent e){
     fill(0, 255, 0);
   }
   else{
-    text(key, 300,250);
+    text("", 300,250);
     fill(255, 0, 0);
   }
 }
