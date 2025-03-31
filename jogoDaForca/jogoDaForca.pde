@@ -17,8 +17,17 @@ void setup(){
   size(600, 600);
   background(0);
   
+  //setup dos gráficos
+  stroke(255);
+  strokeWeight(4);
+  line(50, 50, 50, 250);
+  line(50, 50,150,  50);
+  line(150,50,150,80);
+  rect(25,250,50,10);
+
+  
   textSize(32);
-  text("erros:",0,450);
+  text("erros:",0,400);
 }
 
 void draw(){
@@ -28,19 +37,17 @@ void draw(){
 }
 
 //detecta o que foi digitado
-void keyTyped(KeyEvent e){
-  
+void keyTyped(KeyEvent e){ 
   println("typed "+ key + " " + keyCode);
   
   if (checkResp(resposta)){
     text(key, 300, 350);
-    fill(0, 255, 0);
-    
+    fill(0, 255, 0);   
   }
   else{
-    text(key, 10 + i, 470);
+    text(key, 10 + i, 430);
     fill(255, 0, 0);
-    i += 32;
+    i += 24;
   }
 }
 
