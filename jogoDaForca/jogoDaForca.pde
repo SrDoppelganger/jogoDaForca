@@ -12,9 +12,7 @@ int i = 0;
 
 void setup(){
   //setup inicial das variavéis (TODO colocar isso numa função para ser chamada dps)
-  palavras = loadStrings("frutas.txt");
-  palavra = palavras[round(random(0,17))].toLowerCase();
-  resposta = palavra.toCharArray();
+  gameStart();
   
   //setup da tela do jogo
   size(600, 600);
@@ -101,4 +99,10 @@ void gameOver(){
   text("Você perdeu!", 300,300);
   text("A palavra era: " + palavra, 300,350);
   fill(75, 0, 130);
+}
+
+void gameStart(){
+  palavras = loadStrings("frutas.txt");
+  palavra = palavras[round(random(0,17))].toLowerCase();
+  resposta = palavra.toCharArray();
 }
