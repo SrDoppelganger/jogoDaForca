@@ -7,8 +7,10 @@ char[] resposta;
 void setup(){
   //setup inicial das variavéis
   palavras = loadStrings("frutas.txt");
-  palavra = palavras[round(random(0,17))];
+  palavra = palavras[round(random(0,17))].toLowerCase();
   resposta = palavra.toCharArray();
+  
+  //setup da tela do jogo
   size(600, 600);
   background(0);
 }
@@ -23,7 +25,7 @@ void keyTyped(KeyEvent e){
   println("typed "+ key + " " + keyCode);
   
   if (checkResp(resposta)){
-    text(key, 300,250);
+    text("", 300,250);
     fill(0, 255, 0);
   }
   else{
