@@ -13,7 +13,7 @@ int i = 0;
 void gameStart(){
   background(0);
   palavras = loadStrings("frutas.txt");
-  palavra = palavras[round(random(0,17))].toLowerCase();
+  palavra = palavras[round(random(0,39))].toLowerCase();
   palavra_ = "_ ".repeat(palavra.length());
   resposta = palavra.toCharArray();
   erro = -1;
@@ -56,7 +56,7 @@ void keyTyped(KeyEvent e){
     println("a letra "+key+" está presente na palavra!");
     letraCerta();
   }
-  else{
+  else if(key != '0'){
    letraErrada();
   }
 }
@@ -144,15 +144,28 @@ boolean checkResp(char[] resposta){
 
 void gameOver(){
   background(0);
+  
+  fill(255);
+  textSize(16);
+  text("Pressione 0 para reiniciar",420,24);
+  
+  
+  fill(255,0,0);
   textSize(32);
   textAlign(CENTER);
   text("Você perdeu!", 300,300);
+  fill(255);
   text("A palavra era: " + palavra, 300,350);
   //fill(75, 0, 130);
 }
 
 void gameWon(){
   background(0);
+  
+  fill(255);
+  textSize(16);
+  text("Pressione 0 para reiniciar",420,24);
+  
   textSize(32);
   textAlign(CENTER);
   text("Você ganhou!", 300,300);
