@@ -14,7 +14,7 @@ void gameStart(){
   background(0);
   palavras = loadStrings("frutas.txt");
   palavra = palavras[round(random(0,17))].toLowerCase();
-  palavra_ = "_ ".repeat(palavra.length());
+  palavra_ = " _".repeat(palavra.length());
   resposta = palavra.toCharArray();
   erro = -1;
   i = 0;
@@ -101,9 +101,12 @@ void letraCerta(){
   for(int pos = 0; pos<palavra.length(); pos++){
     if(palavra.charAt(pos) == key && palavra_.charAt(pos) != key){
       //forma nova string para mostrar na tela
+      palavra_ = palavra_.replaceAll("_ ", "_"); //concerta problema com espaçamento
       String palavraRevelada = palavra_.substring(0, pos) + key + palavra_.substring(pos+1); 
+      palavraRevelada = palavraRevelada.replaceAll("_", "_ ");
       palavra_ = palavraRevelada;
        
+      println(palavra_); 
       text(palavra_,300,300);
     }
   }
