@@ -15,12 +15,11 @@ void gameStart(){
   palavras = loadStrings("frutas.txt");
   palavra = palavras[round(random(0,17))].toLowerCase();
   palavra_ = "_ ".repeat(palavra.length());
-  println(palavra_);
   resposta = palavra.toCharArray();
   erro = -1;
   i = 0;
   
-  println(palavra);
+  text(palavra_, 300, 300);
   drawHud();
 }
 
@@ -75,22 +74,27 @@ void letraErrada(){
    case 0:
      break;
    case 1:
+     fill(255);
      ellipse(150,80,40,40);
-     noFill();
      break;
    case 2:
+     stroke(255);
      line(150,80,150,200);
      break;
    case 3:
+     stroke(255);
      line(150,100,190,140);
      break;
    case 4:
+     stroke(255);
      line(150,100,110,140);
      break;
    case 5:
+     stroke(255);
      line(150,200,190,240);
      break;
    case 6:
+     stroke(255);
      line(150,200,110,240);
      break;
    }
@@ -109,11 +113,16 @@ void letraCerta(){
       palavraRevelada = palavraRevelada.replaceAll("_", "_ ");
       palavra_ = palavraRevelada;
       
+      stroke(0);
+      fill(0);
+      rect(200,200,400,180);
       
+      fill(255);
       println(palavra_);
       text(palavra_,300,300);
-      fill(255);
       
+      
+    
        //termina o jogo caso o jogador advinhe a ultima letra
        if(!palavra_.contains("_")){
         gameWon();
