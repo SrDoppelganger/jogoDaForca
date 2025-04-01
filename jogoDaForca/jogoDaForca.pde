@@ -1,6 +1,7 @@
 //base de dados
 String[]palavras;
 String palavra;
+String palavra_;
 char[] resposta;
 
 //contador de erros
@@ -9,6 +10,18 @@ int erro = 0;
 //ordenação das palavras na tela
 int i = 0;
 
+void gameStart(){
+  background(0);
+  palavras = loadStrings("frutas.txt");
+  palavra = palavras[round(random(0,17))].toLowerCase();
+  palavra_ = "_ ".repeat(palavra.length());
+  resposta = palavra.toCharArray();
+  erro = -1;
+  i = 0;
+  
+  println(palavra);
+  drawHud();
+}
 
 void setup(){
   //setup inicial das variavéis (TODO colocar isso numa função para ser chamada dps)
@@ -27,17 +40,20 @@ void draw(){
   
 }
 
+
 //detecta o que foi digitado
 void keyTyped(KeyEvent e){ 
   println("typed "+ key + " " + keyCode);
   
+  //reseta o jogo
   if(key == '0'){
     gameStart();
   }
   
+  
   if (checkResp(resposta)){
-   //fill(75, 0, 130);  
-   println("yaaay");
+    println("a letra "+key+" está presente na palavra!");
+    letraCerta();
   }
   else{
    letraErrada();
@@ -78,9 +94,25 @@ void letraErrada(){
    }
 }
 
+
+//se n der certo, trocar palavra por resposta
+void letraCerta(){
+  //verifica posição da letra e se a letra já foi colocada
+  for(int pos = 0; pos<palavra.length(); pos++){
+    if(palavra.charAt(pos) == key && palavra_.charAt(pos) != key){
+      //forma nova string para mostrar na tela
+      String palavraRevelada = palavra_.substring(0, pos) + key + palavra_.substring(pos+1); 
+      palavra_ = palavraRevelada;
+       
+      text(palavra_,300,300);
+    }
+  }
+
+}
+
 boolean checkResp(char[] resposta){
   boolean check = false;
-  for(char letra : resposta){
+  for(char letra : resposta){    
     if (letra == key){
       return check = true;
     }
@@ -97,16 +129,7 @@ void gameOver(){
   //fill(75, 0, 130);
 }
 
-void gameStart(){
-  background(0);
-  palavras = loadStrings("frutas.txt");
-  palavra = palavras[round(random(0,17))].toLowerCase();
-  resposta = palavra.toCharArray();
-  erro = -1;
-  i = 0;
-  
-  drawHud();
-}
+
 
 void drawHud(){
   stroke(255);
