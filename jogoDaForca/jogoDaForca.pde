@@ -161,6 +161,10 @@ void gameWon(){
 
 
 void drawHud(){
+  fill(255);
+  textSize(16);
+  text("Pressione 0 para reiniciar",420,24);
+  
   stroke(255);
   strokeWeight(4);
   line(50, 50, 50, 300);

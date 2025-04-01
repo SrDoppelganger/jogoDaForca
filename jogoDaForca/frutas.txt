@@ -2,10 +2,10 @@ Abacaxi
 Açaí
 Acerola
 Cajá
-Caju 
+Caju
 Graviola
-Lima 
-Manga 
+Lima
+Manga
 Maracujá
 Mamão
 Pinha
@@ -16,3 +16,10 @@ Mangaba
 Pitanga
 Umbu
 Amora
+Caqui
+Carambola
+Melancia
+Melão
+Abacate
+Morango
+Cereja
