@@ -1,4 +1,4 @@
-//base de dados
+//base de dados.
 String[]palavras;
 String palavra;
 String palavra_;
