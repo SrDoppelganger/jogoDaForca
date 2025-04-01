@@ -4,5 +4,5 @@
 - [X] gráficos
 - [X] contador de erros (pessoa na forca)
 - [X] mostrar tentativas certas e tentativas erradas
-- [ ] concertar a atualização texto 
+- [X] concertar a atualização texto 
 
