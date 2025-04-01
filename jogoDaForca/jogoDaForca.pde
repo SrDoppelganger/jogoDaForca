@@ -34,16 +34,13 @@ void setup(){
   
   //setup dos gráficos
   drawHud();
+  text(palavra_,300,300);
+  fill(255);
   
 }
 
 void draw(){
-   if(!palavra_.contains("_")){
-      gameWon();
-    }
-  
-  text(palavra_,300,300);
-  fill(255);
+
 }
 
 
@@ -113,7 +110,14 @@ void letraCerta(){
       palavra_ = palavraRevelada;
       
       
-      println(palavra_);  
+      println(palavra_);
+      text(palavra_,300,300);
+      fill(255);
+      
+       //termina o jogo caso o jogador advinhe a ultima letra
+       if(!palavra_.contains("_")){
+        gameWon();
+        }
     }
   }
 
