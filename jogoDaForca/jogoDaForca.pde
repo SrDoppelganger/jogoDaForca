@@ -4,15 +4,50 @@ String palavra;
 String palavra_;
 char[] resposta;
 
+//variaveis para temas de cores
+int[] bgColor = {255, 255, 255};
+int[] lineColor = {0, 0, 0};
+
 //contador de erros
 int erro = 0;
 
 //ordenação das palavras na tela
 int i = 0;
 
+//verificar qual cena o jogo se encontra (0-tela de inicio, 1-tela de escolha de db, 2-tela de principal, 3-tela de fim)
+int cena;
+
+void setup(){
+  //setup da tela do jogo
+  size(600, 600);
+  background(bgColor[0],bgColor[1],bgColor[2]);
+  
+  //chama a tela inicial do jogo
+  telaDeInicio();
+}
+
+void draw(){
+  if(cena == 2){
+    drawHud();
+    fill(lineColor[0],lineColor[1],lineColor[2]);
+  }
+}
+
+void telaDeInicio(){
+  cena = 0;
+  
+  textSize(90);
+  textAlign(CENTER);
+  fill(lineColor[0],lineColor[1],lineColor[2]);
+  text("Jogo da Forca", 300, 200);
+  
+  textSize(32);
+  fill(lineColor[0],lineColor[1],lineColor[2]);
+  text("clique para começar", 300, 350);
+}
+
 void gameStart(){
-  background(0);
-  palavras = loadStrings("frutas.txt");
+  background(bgColor[0],bgColor[1],bgColor[2]);
   palavra = palavras[round(random(0,39))].toLowerCase();
   palavra_ = "_ ".repeat(palavra.length());
   resposta = palavra.toCharArray();
@@ -20,27 +55,58 @@ void gameStart(){
   i = 0;
   
   text(palavra_, 300, 300);
-  drawHud();
+  //troca para a tela principal
+  cena = 2;
 }
 
-void setup(){
-  //setup inicial das variavéis (TODO colocar isso numa função para ser chamada dps)
-  gameStart();
+
+
+void mouseReleased(){
+ 
   
-  //setup da tela do jogo
-  size(600, 600);
-  background(0);
-  
-  //setup dos gráficos
-  drawHud();
-  text(palavra_,300,300);
-  fill(255);
-  
+  //tela de inicio
+  if(cena==0){
+    escolherPalavras();
+  }
+  //tela de escolha de palavras
+  if(cena==1){
+    delay(500);
+    if(mouseX >= 100 && mouseX <= 500 && mouseY >= 202 && mouseY <= 272){
+      palavras = loadStrings("frutas.txt");
+      gameStart();
+    }
+  }
 }
 
-void draw(){
-
+void escolherPalavras(){
+ cena = 1;
+ background(bgColor[0],bgColor[1],bgColor[2]);
+ 
+ fill(lineColor[0],lineColor[1],lineColor[2]);
+ textSize(48);
+ text("Escolha o Tema", 300, 50);
+ 
+ //opções
+ noFill();
+ rect(100, 202,400,70);
+ textSize(48);
+ text("Frutas", 300, 250);
+ 
+ noFill();
+ rect(100, 302,400,70);
+ textSize(48);
+ text("Países", 300, 350);
+ 
+ noFill();
+ rect(100, 402,400,70);
+ textSize(48);
+ text("Animais", 300, 450);
+ 
 }
+
+
+
+
 
 
 //detecta o que foi digitado
@@ -74,27 +140,27 @@ void letraErrada(){
    case 0:
      break;
    case 1:
-     fill(255);
+     fill(lineColor[0],lineColor[1],lineColor[2]);
      ellipse(150,80,40,40);
      break;
    case 2:
-     stroke(255);
+     stroke(lineColor[0],lineColor[1],lineColor[2]);
      line(150,80,150,200);
      break;
    case 3:
-     stroke(255);
+     stroke(lineColor[0],lineColor[1],lineColor[2]);
      line(150,100,190,140);
      break;
    case 4:
-     stroke(255);
+     stroke(lineColor[0],lineColor[1],lineColor[2]);
      line(150,100,110,140);
      break;
    case 5:
-     stroke(255);
+     stroke(lineColor[0],lineColor[1],lineColor[2]);
      line(150,200,190,240);
      break;
    case 6:
-     stroke(255);
+     stroke(lineColor[0],lineColor[1],lineColor[2]);
      line(150,200,110,240);
      break;
    }
@@ -113,11 +179,12 @@ void letraCerta(){
       palavraRevelada = palavraRevelada.replaceAll("_", "_ ");
       palavra_ = palavraRevelada;
       
-      stroke(0);
-      fill(0);
+      //testar sem isso
+      stroke(bgColor[0],bgColor[1],bgColor[2]);
+      fill(bgColor[0],bgColor[1],bgColor[2]);
       rect(200,200,400,180);
       
-      fill(255);
+      fill(lineColor[0],lineColor[1],lineColor[2]);
       println(palavra_);
       text(palavra_,300,300);
       
@@ -143,26 +210,26 @@ boolean checkResp(char[] resposta){
 }
 
 void gameOver(){
-  background(0);
+  background(bgColor[0],bgColor[1],bgColor[2]);
   
-  fill(255);
+  fill(lineColor[0],lineColor[1],lineColor[2]);
   textSize(16);
   text("Pressione 0 para reiniciar",420,24);
   
   
-  fill(255,0,0);
+  fill(lineColor[0],lineColor[1],lineColor[2]);
   textSize(32);
   textAlign(CENTER);
   text("Você perdeu!", 300,300);
-  fill(255);
+  fill(lineColor[0],lineColor[1],lineColor[2]);
   text("A palavra era: " + palavra, 300,350);
   //fill(75, 0, 130);
 }
 
 void gameWon(){
-  background(0);
+  background(bgColor[0],bgColor[1],bgColor[2]);
   
-  fill(255);
+  fill(lineColor[0],lineColor[1],lineColor[2]);
   textSize(16);
   text("Pressione 0 para reiniciar",420,24);
   
@@ -174,11 +241,7 @@ void gameWon(){
 
 
 void drawHud(){
-  fill(255);
-  textSize(16);
-  text("Pressione 0 para reiniciar",420,24);
-  
-  stroke(255);
+  stroke(lineColor[0],lineColor[1],lineColor[2]);
   strokeWeight(4);
   line(50, 50, 50, 300);
   line(50, 50,150,  50);
