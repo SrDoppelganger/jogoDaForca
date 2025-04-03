@@ -39,10 +39,12 @@ void draw(){
     background(bgColor[0],bgColor[1],bgColor[2]);
     drawHud();
     
+    //desenha homem na forca
+    drawHangman();
+    
     //desenha palavra
     textAlign(CENTER);
     fill(lineColor[0],lineColor[1],lineColor[2]);
-    println(palavra_);
     textSize(48);
     text(palavra_,300,300);
     
@@ -179,7 +181,11 @@ void letraErrada(){
      gameOver();
    }
    
-   switch(erro){
+   drawHangman();
+}
+
+void drawHangman(){
+     switch(erro){
    case 0:
      break;
    case 1:
@@ -187,28 +193,52 @@ void letraErrada(){
      ellipse(150,80,40,40);
      break;
    case 2:
+     fill(lineColor[0],lineColor[1],lineColor[2]);
+     ellipse(150,80,40,40);
+     
      stroke(lineColor[0],lineColor[1],lineColor[2]);
      line(150,80,150,200);
      break;
    case 3:
+     fill(lineColor[0],lineColor[1],lineColor[2]);
+     ellipse(150,80,40,40);
+     
      stroke(lineColor[0],lineColor[1],lineColor[2]);
+     line(150,80,150,200);
      line(150,100,190,140);
      break;
    case 4:
+     fill(lineColor[0],lineColor[1],lineColor[2]);
+     ellipse(150,80,40,40);
+     
      stroke(lineColor[0],lineColor[1],lineColor[2]);
+     line(150,80,150,200);
+     line(150,100,190,140);
      line(150,100,110,140);
      break;
    case 5:
+     fill(lineColor[0],lineColor[1],lineColor[2]);
+     ellipse(150,80,40,40);
+     
      stroke(lineColor[0],lineColor[1],lineColor[2]);
+     line(150,80,150,200);
+     line(150,100,190,140);
+     line(150,100,110,140);
      line(150,200,190,240);
      break;
    case 6:
+     fill(lineColor[0],lineColor[1],lineColor[2]);
+     ellipse(150,80,40,40);
+     
      stroke(lineColor[0],lineColor[1],lineColor[2]);
+     line(150,80,150,200);
+     line(150,100,190,140);
+     line(150,100,110,140);
+     line(150,200,190,240);
      line(150,200,110,240);
      break;
    }
 }
-
 
 //se n der certo, trocar palavra por resposta
 void letraCerta(){
