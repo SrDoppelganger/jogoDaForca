@@ -18,7 +18,7 @@ int erro = 0;
 //ordenação das palavras na tela
 int i = 0;
 
-//verificar qual cena o jogo se encontra (0-tela de inicio, 1-tela de escolha de db, 2-tela de principal, 3-tela de fim)
+//verificar qual cena o jogo se encontra (0-tela de inicio, 1-tela de escolha de db, 2-tela de principal, 3-tela de derrota, 4-tela de vitoria)
 int cena;
 
 //var que guarda tentativas erradas
@@ -34,6 +34,12 @@ void setup(){
 }
 
 void draw(){
+  if(cena == 0){
+   telaDeInicio();
+  }
+  if(cena == 1){
+    escolherPalavras();
+  }
   if(cena == 2){
     //desenha cenário
     background(bgColor[0],bgColor[1],bgColor[2]);
@@ -52,6 +58,12 @@ void draw(){
     textAlign(LEFT);
     text(tentativas, 10, 430);
   }
+  if(cena == 3){
+    gameOver();
+  }
+  if(cena == 4){
+    gameWon();
+  }
 }
 
 void telaDeInicio(){
@@ -63,6 +75,9 @@ void telaDeInicio(){
   textAlign(CENTER);
   fill(lineColor[0],lineColor[1],lineColor[2]);
   text("Jogo da Forca", 300, 200);
+  
+  textSize(20);
+  text("pressione as teclas numericas para mudar as cores", 300, 20);
   
   textSize(48);
   fill(color2[0],color2[1],color2[2]);
@@ -113,7 +128,7 @@ void mouseReleased(){
     }
   }
   //tela de fim
-  if(cena == 3){
+  if(cena == 3 || cena == 4){
     telaDeInicio();
   }
 }
@@ -162,7 +177,7 @@ void keyTyped(KeyEvent e){
       println("a letra "+key+" está presente na palavra!");
       letraCerta();
     }
-    else if(key != '1' && key != '2' && key != '3' && key != '4' && key != '5' && key != '6'){
+    else if(key != '1' && key != '2' && key != '3' && key != '4' && key != '5' && key != '6' && key != '7' && key != '8' && key != '9' && key != '0'){
      letraErrada();
     }
   } 
@@ -293,7 +308,7 @@ void gameOver(){
 }
 
 void gameWon(){
-  cena = 3;
+  cena = 4;
   background(bgColor[0],bgColor[1],bgColor[2]);
   
   
@@ -339,6 +354,7 @@ void keyReleased(){
    lineColor = new int[]{0, 0, 0};
    color3 = new int[] {0 , 0, 255};
    color1 = new int[] {255, 0, 0};
+   color2 = new int[] {0, 255, 0};
   }
   
   //tema escuro
@@ -347,6 +363,7 @@ void keyReleased(){
    lineColor = new int[]{255, 255, 255};
    color3 = new int[] {65,102,245};
    color1 = new int[] {226,6,44};
+   color2 = new int[] {50,205,50};
   }
   
   //tema claro2
@@ -355,6 +372,7 @@ void keyReleased(){
     lineColor = new int[]{47,79,79};
     color3 = new int[] {255,225,53};
     color1 = new int[] {102,51,153};
+    color2 = new int[] {0,139,139};
   }
   //tema escuro2
    if(key == '4'){
@@ -362,6 +380,7 @@ void keyReleased(){
     lineColor = new int[]{50,205,50};
     color3 = new int[] {204,255,0};
     color1 = new int[] {158,253,56};
+    color2 = new int[] {232,244,140};
   }
   //tema claro3
   if(key == '5'){
@@ -369,6 +388,7 @@ void keyReleased(){
     lineColor = new int[]{18,97,128};
     color3 = new int[] {159,0,197};
     color1 = new int[] {255,0,144};
+    color2 = new int[] {255,153,153};
   }
   //tema escuro3
   if(key == '6'){
@@ -376,6 +396,7 @@ void keyReleased(){
     lineColor = new int[]{181,137,0};
     color3 = new int[] {39,139,210};
     color1 = new int[] {220,50,46};
+    color2 = new int[] {133,154,1};
   }
 
 }
