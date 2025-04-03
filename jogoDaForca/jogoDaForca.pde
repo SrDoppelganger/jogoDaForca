@@ -36,6 +36,8 @@ void draw(){
 void telaDeInicio(){
   cena = 0;
   
+  background(bgColor[0],bgColor[1],bgColor[2]);
+  
   textSize(90);
   textAlign(CENTER);
   fill(lineColor[0],lineColor[1],lineColor[2]);
@@ -50,12 +52,13 @@ void telaDeInicio(){
 
 void gameStart(){
   background(bgColor[0],bgColor[1],bgColor[2]);
-  palavra = palavras[round(random(0,39))].toLowerCase();
+  palavra = palavras[round(random(0,palavras.length - 1))].toLowerCase();
   palavra_ = "_ ".repeat(palavra.length());
   resposta = palavra.toCharArray();
   erro = -1;
   i = 0;
   
+  textSize(48);
   text(palavra_, 300, 300);
   //troca para a tela principal
   cena = 2;
@@ -78,6 +81,17 @@ void mouseReleased(){
       palavras = loadStrings("frutas.txt");
       gameStart();
     }
+    if(mouseX >= 100 && mouseX <= 500 && mouseY >= 302 && mouseY <= 372){
+      palavras = loadStrings("paises.txt");
+      gameStart();
+    }
+    if(mouseX >= 100 && mouseX <= 500 && mouseY >= 402 && mouseY <= 472){
+      palavras = loadStrings("animais.txt");
+      gameStart();
+    }
+  }
+  if(cena == 3){
+    telaDeInicio();
   }
 }
 
@@ -114,20 +128,15 @@ void escolherPalavras(){
 
 //detecta o que foi digitado
 void keyTyped(KeyEvent e){ 
-  println("typed "+ key + " " + keyCode);
-  
-  //reseta o jogo
-  if(key == '0'){
-    gameStart();
-  }
-  
-  if (checkResp(resposta)){
-    println("a letra "+key+" está presente na palavra!");
-    letraCerta();
-  }
-  else if(key != '0'){
-   letraErrada();
-  }
+  if(cena == 2){
+      if (checkResp(resposta)){
+      println("a letra "+key+" está presente na palavra!");
+      letraCerta();
+    }
+    else if(key != '0'){
+     letraErrada();
+    }
+  } 
 }
 
 void letraErrada(){
@@ -177,18 +186,19 @@ void letraCerta(){
     
     if(palavra.charAt(pos) == key && palavra_.charAt(pos) != key){
       //forma nova string para mostrar na tela
-      palavra_ = palavra_.replaceAll("_ ", "_"); //concerta problema com espaçamento
+      palavra_ = palavra_.replaceAll("_ ", "_"); //conserta problema com espaçamento
       String palavraRevelada = palavra_.substring(0, pos) + key + palavra_.substring(pos+1); 
       palavraRevelada = palavraRevelada.replaceAll("_", "_ ");
       palavra_ = palavraRevelada;
       
-      //testar sem isso
       stroke(bgColor[0],bgColor[1],bgColor[2]);
       fill(bgColor[0],bgColor[1],bgColor[2]);
-      rect(200,200,400,180);
+      rect(150,200,400,180);
       
+      textAlign(CENTER);
       fill(lineColor[0],lineColor[1],lineColor[2]);
       println(palavra_);
+      textSize(48);
       text(palavra_,300,300);
       
       
@@ -213,11 +223,11 @@ boolean checkResp(char[] resposta){
 }
 
 void gameOver(){
+  cena = 3;
   background(bgColor[0],bgColor[1],bgColor[2]);
   
   fill(lineColor[0],lineColor[1],lineColor[2]);
   textSize(16);
-  text("Pressione 0 para reiniciar",420,24);
   
   
   fill(lineColor[0],lineColor[1],lineColor[2]);
@@ -227,23 +237,32 @@ void gameOver(){
   fill(lineColor[0],lineColor[1],lineColor[2]);
   text("A palavra era: " + palavra, 300,350);
   //fill(75, 0, 130);
+  
+  text("clique para continuar",300,400);
 }
 
 void gameWon(){
+  cena = 3;
   background(bgColor[0],bgColor[1],bgColor[2]);
   
   fill(lineColor[0],lineColor[1],lineColor[2]);
   textSize(16);
-  text("Pressione 0 para reiniciar",420,24);
+ 
   
   textSize(32);
   textAlign(CENTER);
   text("Você ganhou!", 300,300);
+  
+  fill(lineColor[0],lineColor[1],lineColor[2]);
+  text("A palavra era: " + palavra, 300,350);
+  
+  text("clique para continuar",300,400);
 }
 
 
 
 void drawHud(){
+  cena = 2;
   stroke(lineColor[0],lineColor[1],lineColor[2]);
   strokeWeight(4);
   line(50, 50, 50, 300);
