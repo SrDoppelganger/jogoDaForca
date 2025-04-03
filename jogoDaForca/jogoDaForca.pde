@@ -7,6 +7,9 @@ char[] resposta;
 //variaveis para temas de cores
 int[] bgColor = {255, 255, 255};
 int[] lineColor = {0, 0, 0};
+int[] color1 = {255, 0, 0};
+int[] color2 = {0, 255, 0};
+int[] color3 = {0, 0, 255};
 
 //contador de erros
 int erro = 0;
@@ -29,7 +32,6 @@ void setup(){
 void draw(){
   if(cena == 2){
     drawHud();
-    fill(lineColor[0],lineColor[1],lineColor[2]);
   }
 }
 
@@ -44,9 +46,11 @@ void telaDeInicio(){
   text("Jogo da Forca", 300, 200);
   
   textSize(48);
-  fill(lineColor[0],lineColor[1],lineColor[2]);
+  fill(color2[0],color2[1],color2[2]);
   text("Jogar", 300, 550);
   noFill();
+  strokeWeight(2);
+  stroke(color2[0],color2[1],color2[2]);
   rect(200,500,200,80);
 }
 
@@ -67,8 +71,6 @@ void gameStart(){
 
 
 void mouseReleased(){
-  print(mouseX +" "+ mouseY);
-  
   //tela de inicio
   if(cena==0){
     if(mouseX >= 200 && mouseX <= 400 && mouseY >= 500 && mouseY <= 580){
@@ -90,6 +92,7 @@ void mouseReleased(){
       gameStart();
     }
   }
+  //tela de fim
   if(cena == 3){
     telaDeInicio();
   }
@@ -105,17 +108,23 @@ void escolherPalavras(){
  
  //opções
  noFill();
+ stroke(color1[0],color1[1],color1[2]);
  rect(100, 202,400,70);
+ fill(color1[0],color1[1],color1[2]);
  textSize(48);
  text("Frutas", 300, 250);
  
  noFill();
+ stroke(color2[0],color2[1],color2[2]);
  rect(100, 302,400,70);
  textSize(48);
+ fill(color2[0],color2[1],color2[2]);
  text("Países", 300, 350);
  
  noFill();
+ stroke(color3[0],color3[1],color3[2]);
  rect(100, 402,400,70);
+ fill(color3[0],color3[1],color3[2]);
  textSize(48);
  text("Animais", 300, 450);
  
@@ -226,14 +235,13 @@ void gameOver(){
   cena = 3;
   background(bgColor[0],bgColor[1],bgColor[2]);
   
-  fill(lineColor[0],lineColor[1],lineColor[2]);
-  textSize(16);
-  
   
   fill(lineColor[0],lineColor[1],lineColor[2]);
   textSize(32);
   textAlign(CENTER);
   text("Você perdeu!", 300,300);
+  
+  //trocar paleta
   fill(lineColor[0],lineColor[1],lineColor[2]);
   text("A palavra era: " + palavra, 300,350);
   //fill(75, 0, 130);
