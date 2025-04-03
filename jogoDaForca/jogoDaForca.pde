@@ -41,9 +41,11 @@ void telaDeInicio(){
   fill(lineColor[0],lineColor[1],lineColor[2]);
   text("Jogo da Forca", 300, 200);
   
-  textSize(32);
+  textSize(48);
   fill(lineColor[0],lineColor[1],lineColor[2]);
-  text("clique para começar", 300, 350);
+  text("Jogar", 300, 550);
+  noFill();
+  rect(200,500,200,80);
 }
 
 void gameStart(){
@@ -62,15 +64,16 @@ void gameStart(){
 
 
 void mouseReleased(){
- 
+  print(mouseX +" "+ mouseY);
   
   //tela de inicio
   if(cena==0){
-    escolherPalavras();
+    if(mouseX >= 200 && mouseX <= 400 && mouseY >= 500 && mouseY <= 580){
+      escolherPalavras();
+    }
   }
   //tela de escolha de palavras
   if(cena==1){
-    delay(500);
     if(mouseX >= 100 && mouseX <= 500 && mouseY >= 202 && mouseY <= 272){
       palavras = loadStrings("frutas.txt");
       gameStart();
@@ -79,7 +82,7 @@ void mouseReleased(){
 }
 
 void escolherPalavras(){
- cena = 1;
+ cena = 1; 
  background(bgColor[0],bgColor[1],bgColor[2]);
  
  fill(lineColor[0],lineColor[1],lineColor[2]);
