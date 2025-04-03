@@ -4,6 +4,7 @@ String palavra;
 String palavra_;
 char[] resposta;
 
+
 //variaveis para temas de cores
 int[] bgColor = {255, 255, 255};
 int[] lineColor = {0, 0, 0};
@@ -20,6 +21,9 @@ int i = 0;
 //verificar qual cena o jogo se encontra (0-tela de inicio, 1-tela de escolha de db, 2-tela de principal, 3-tela de fim)
 int cena;
 
+//var que guarda tentativas erradas
+String tentativas = "";
+
 void setup(){
   //setup da tela do jogo
   size(600, 600);
@@ -31,7 +35,20 @@ void setup(){
 
 void draw(){
   if(cena == 2){
+    //desenha cenário
+    background(bgColor[0],bgColor[1],bgColor[2]);
     drawHud();
+    
+    //desenha palavra
+    textAlign(CENTER);
+    fill(lineColor[0],lineColor[1],lineColor[2]);
+    println(palavra_);
+    textSize(48);
+    text(palavra_,300,300);
+    
+    //desenha tentativas erradas
+    textAlign(LEFT);
+    text(tentativas, 10, 430);
   }
 }
 
@@ -62,6 +79,7 @@ void gameStart(){
   erro = -1;
   i = 0;
   
+  fill(lineColor[0],lineColor[1],lineColor[2]);
   textSize(48);
   text(palavra_, 300, 300);
   //troca para a tela principal
@@ -138,19 +156,23 @@ void escolherPalavras(){
 //detecta o que foi digitado
 void keyTyped(KeyEvent e){ 
   if(cena == 2){
-      if (checkResp(resposta)){
+      if (checkResp(resposta) && key != '1' && key != '2' && key != '3' && key != '4' && key != '5' && key != '6'){
       println("a letra "+key+" está presente na palavra!");
       letraCerta();
     }
-    else if(key != '0'){
+    else if(key != '1' && key != '2' && key != '3' && key != '4' && key != '5' && key != '6'){
      letraErrada();
     }
   } 
 }
 
+String tentativasErradas(char key){
+  tentativas = tentativas + key + " ";
+  return tentativas;
+}
+
 void letraErrada(){
-   text(key, 10 + i, 430);
-   i += 24;
+   tentativasErradas(key);
    erro ++;
    
    if(erro > 6){
@@ -199,19 +221,7 @@ void letraCerta(){
       String palavraRevelada = palavra_.substring(0, pos) + key + palavra_.substring(pos+1); 
       palavraRevelada = palavraRevelada.replaceAll("_", "_ ");
       palavra_ = palavraRevelada;
-      
-      stroke(bgColor[0],bgColor[1],bgColor[2]);
-      fill(bgColor[0],bgColor[1],bgColor[2]);
-      rect(150,200,400,180);
-      
-      textAlign(CENTER);
-      fill(lineColor[0],lineColor[1],lineColor[2]);
-      println(palavra_);
-      textSize(48);
-      text(palavra_,300,300);
-      
-      
-    
+   
        //termina o jogo caso o jogador advinhe a ultima letra
        if(!palavra_.contains("_")){
         gameWon();
@@ -237,34 +247,40 @@ void gameOver(){
   
   
   fill(lineColor[0],lineColor[1],lineColor[2]);
-  textSize(32);
+  textSize(72);
   textAlign(CENTER);
-  text("Você perdeu!", 300,300);
+  text("Você perdeu!", 300,100);
   
   //trocar paleta
-  fill(lineColor[0],lineColor[1],lineColor[2]);
+  textSize(48);
+  fill(color1[0],color1[1],color1[2]);
   text("A palavra era: " + palavra, 300,350);
   //fill(75, 0, 130);
   
-  text("clique para continuar",300,400);
+  textSize(32);
+  fill(lineColor[0],lineColor[1],lineColor[2]);
+  text("clique para continuar",300,450);
 }
 
 void gameWon(){
   cena = 3;
   background(bgColor[0],bgColor[1],bgColor[2]);
   
+  
   fill(lineColor[0],lineColor[1],lineColor[2]);
-  textSize(16);
- 
+  textSize(72);
+  textAlign(CENTER);
+  text("Você ganhou!", 300,100);
+  
+  //trocar paleta
+  textSize(48);
+  fill(color3[0],color3[1],color3[2]);
+  text("A palavra era: " + palavra, 300,350);
+  //fill(75, 0, 130);
   
   textSize(32);
-  textAlign(CENTER);
-  text("Você ganhou!", 300,300);
-  
   fill(lineColor[0],lineColor[1],lineColor[2]);
-  text("A palavra era: " + palavra, 300,350);
-  
-  text("clique para continuar",300,400);
+  text("clique para continuar",300,450);
 }
 
 
@@ -272,6 +288,7 @@ void gameWon(){
 void drawHud(){
   cena = 2;
   stroke(lineColor[0],lineColor[1],lineColor[2]);
+  fill(lineColor[0],lineColor[1],lineColor[2]);
   strokeWeight(4);
   line(50, 50, 50, 300);
   line(50, 50,150,  50);
@@ -281,4 +298,54 @@ void drawHud(){
   textAlign(LEFT);
   textSize(32);
   text("erros:",0,400);
+}
+
+
+//alterar temas de cores
+void keyReleased(){
+ //tema claro
+  if(key == '1'){
+   bgColor = new int[]{255, 255, 255};
+   lineColor = new int[]{0, 0, 0};
+   color3 = new int[] {0 , 0, 255};
+   color1 = new int[] {255, 0, 0};
+  }
+  
+  //tema escuro
+  if(key == '2'){
+   bgColor = new int[]{0, 0, 0};
+   lineColor = new int[]{255, 255, 255};
+   color3 = new int[] {65,102,245};
+   color1 = new int[] {226,6,44};
+  }
+  
+  //tema claro2
+   if(key == '3'){
+    bgColor = new int[]{245,245,220};
+    lineColor = new int[]{47,79,79};
+    color3 = new int[] {255,225,53};
+    color1 = new int[] {102,51,153};
+  }
+  //tema escuro2
+   if(key == '4'){
+    bgColor = new int[]{8,8,8};
+    lineColor = new int[]{50,205,50};
+    color3 = new int[] {204,255,0};
+    color1 = new int[] {158,253,56};
+  }
+  //tema claro3
+  if(key == '5'){
+    bgColor = new int[]{255,228,225};
+    lineColor = new int[]{18,97,128};
+    color3 = new int[] {159,0,197};
+    color1 = new int[] {255,0,144};
+  }
+  //tema escuro3
+  if(key == '6'){
+    bgColor = new int[]{7,54,66};
+    lineColor = new int[]{181,137,0};
+    color3 = new int[] {39,139,210};
+    color1 = new int[] {220,50,46};
+  }
+
 }
